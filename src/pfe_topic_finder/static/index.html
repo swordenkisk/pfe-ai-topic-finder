@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PFE AI Topic Finder</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, sans-serif;
+      background: #f4f6f8;
+      color: #17212b;
+    }
+
+    body {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    h1 { margin-bottom: 0.4rem; }
+    .intro { color: #52606d; margin-top: 0; }
+
+    form, .topic {
+      background: #fff;
+      border: 1px solid #dce2e8;
+      border-radius: 10px;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+
+    label { display: block; font-weight: 600; margin: 0.7rem 0 0.3rem; }
+
+    input, select, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid #bcc7d1;
+      border-radius: 6px;
+      font: inherit;
+    }
+
+    button {
+      margin-top: 1rem;
+      background: #1459a6;
+      color: white;
+      border: 0;
+      cursor: pointer;
+    }
+
+    button:hover { background: #0e437e; }
+    .meta { color: #52606d; font-size: 0.92rem; }
+    .error { color: #a32626; }
+    .tag { font-weight: 600; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>PFE AI Topic Finder</h1>
+    <p class="intro">Explore project topics or find recommendations based on your interests.</p>
+
+    <form id="search-form">
+      <label for="interests">Your interests or keywords</label>
+      <input id="interests" name="interests" placeholder="Example: Arabic NLP, healthcare, computer vision">
+
+      <label for="domain">Domain filter</label>
+      <select id="domain" name="domain">
+        <option value="">All domains</option>
+      </select>
+
+      <button type="submit">Find matching topics</button>
+    </form>
+
+    <p id="status" role="status"></p>
+    <section id="results" aria-live="polite"></section>
+  </main>
+
+  <script>
+    const form = document.querySelector("#search-form");
+    const interestsInput = document.querySelector("#interests");
+    const domainSelect = document.querySelector("#domain");
+    const resultsElement = document.querySelector("#results");
+    const statusElement = document.querySelector("#status");
+
+    function addText(parent, tagName, text, className) {
+      const element = document.createElement(tagName);
+      element.textContent = text;
+      if (className) element.className = className;
+      parent.appendChild(element);
+      return element;
+    }
+
+    function renderTopics(topics) {
+      resultsElement.replaceChildren();
+
+      if (topics.length === 0) {
+        addText(resultsElement, "p", "No matching topics found. Try different keywords.");
+        return;
+      }
+
+      for (const topic of topics) {
+        const card = document.createElement("article");
+        card.className = "topic";
+
+        addText(card, "h2", topic.title);
+        addText(card, "p", topic.summary);
+        addText(card, "p", `${topic.domain} · ${topic.level}`, "meta");
+
+        if (typeof topic.score === "number") {
+          addText(card, "p", `Match score: ${topic.score}`, "meta");
+        }
+
+        addText(card, "p", `Methods: ${topic.methods.join(", ")}`, "meta");
+        addText(card, "p", `Suggested datasets: ${topic.datasets.join(", ")}`, "meta");
+        resultsElement.appendChild(card);
+      }
+    }
+
+    async function loadDomains() {
+      const response = await fetch("/api/topics");
+      if (!response.ok) throw new Error("Could not load the topic catalogue.");
+
+      const data = await response.json();
+      const domains = [...new Set(data.topics.map((topic) => topic.domain))].sort();
+
+      for (const domain of domains) {
+        const option = document.createElement("option");
+        option.value = domain;
+        option.textContent = domain;
+        domainSelect.appendChild(option);
+      }
+
+      renderTopics(data.topics);
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const interests = interestsInput.value.trim();
+      const domain = domainSelect.value;
+      statusElement.textContent = "";
+      statusElement.className = "";
+
+      try {
+        const params = new URLSearchParams({ interests });
+        if (domain) params.set("domain", domain);
+
+        const response = await fetch(`/api/recommend?${params}`);
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.detail?.message || "Could not find recommendations.");
+        }
+
+        renderTopics(data.topics);
+      } catch (error) {
+        statusElement.textContent = error.message;
+        statusElement.className = "error";
+        resultsElement.replaceChildren();
+      }
+    });
+
+    loadDomains().catch((error) => {
+      statusElement.textContent = error.message;
+      statusElement.className = "error";
+    });
+  </script>
+</body>
+</html>

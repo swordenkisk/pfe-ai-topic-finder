@@ -1,0 +1,102 @@
+[
+  {
+    "id": "medical-image-triage",
+    "title": "Explainable AI for Medical Image Triage",
+    "domain": "Healthcare",
+    "summary": "Build a model that classifies medical images and highlights the regions that influenced its predictions.",
+    "methods": ["Convolutional neural networks", "Transfer learning", "Grad-CAM"],
+    "datasets": ["A public chest X-ray dataset"],
+    "level": "Intermediate",
+    "keywords": ["healthcare", "medical imaging", "classification", "explainable AI", "computer vision"]
+  },
+  {
+    "id": "arabic-sentiment-analysis",
+    "title": "Sentiment Analysis for Arabic Social Media",
+    "domain": "Natural Language Processing",
+    "summary": "Compare methods for detecting sentiment in Arabic text, including dialectal and code-switched content.",
+    "methods": ["Text preprocessing", "Transformer models", "Sentiment classification"],
+    "datasets": ["A public Arabic sentiment dataset"],
+    "level": "Intermediate",
+    "keywords": ["Arabic", "NLP", "sentiment analysis", "transformers", "text classification"]
+  },
+  {
+    "id": "industrial-anomaly-detection",
+    "title": "Visual Anomaly Detection for Industrial Inspection",
+    "domain": "Industry",
+    "summary": "Detect unusual product appearance from images and evaluate the system under limited training data.",
+    "methods": ["Computer vision", "Anomaly detection", "Representation learning"],
+    "datasets": ["MVTec AD"],
+    "level": "Intermediate",
+    "keywords": ["industry", "manufacturing", "computer vision", "anomaly detection", "inspection"]
+  },
+  {
+    "id": "phishing-detection",
+    "title": "Machine Learning for Phishing URL Detection",
+    "domain": "Cybersecurity",
+    "summary": "Study URL-based features and machine-learning models for identifying potentially malicious links.",
+    "methods": ["Feature engineering", "Classification", "Model evaluation"],
+    "datasets": ["A public phishing URL dataset"],
+    "level": "Beginner",
+    "keywords": ["cybersecurity", "phishing", "URLs", "classification", "security"]
+  },
+  {
+    "id": "crop-disease-detection",
+    "title": "Plant Disease Recognition from Leaf Images",
+    "domain": "Agriculture",
+    "summary": "Train and evaluate an image classifier for recognizing plant diseases from leaf photographs.",
+    "methods": ["Transfer learning", "Image classification", "Data augmentation"],
+    "datasets": ["PlantVillage"],
+    "level": "Beginner",
+    "keywords": ["agriculture", "plant disease", "computer vision", "deep learning", "classification"]
+  },
+  {
+    "id": "energy-demand-forecasting",
+    "title": "Explainable Energy Demand Forecasting",
+    "domain": "Energy",
+    "summary": "Forecast short-term energy consumption and compare interpretable models with more complex approaches.",
+    "methods": ["Time-series analysis", "Regression", "Model explainability"],
+    "datasets": ["A public electricity consumption dataset"],
+    "level": "Intermediate",
+    "keywords": ["energy", "forecasting", "time series", "regression", "explainable AI"]
+  },
+  {
+    "id": "traffic-flow-prediction",
+    "title": "Traffic Flow Prediction Using Spatiotemporal Data",
+    "domain": "Smart Cities",
+    "summary": "Predict traffic conditions from historical measurements and investigate how nearby locations affect predictions.",
+    "methods": ["Time-series modeling", "Graph neural networks", "Forecasting"],
+    "datasets": ["A public traffic sensor dataset"],
+    "level": "Advanced",
+    "keywords": ["smart cities", "traffic", "forecasting", "graph neural networks", "spatiotemporal"]
+  },
+  {
+    "id": "document-question-answering",
+    "title": "Question Answering over University Documents",
+    "domain": "Natural Language Processing",
+    "summary": "Create a retrieval-based question-answering prototype that responds using a collection of university documents.",
+    "methods": ["Document retrieval", "Text embeddings", "Question answering"],
+    "datasets": ["A curated collection of public university documents"],
+    "level": "Intermediate",
+    "keywords": ["NLP", "retrieval", "question answering", "embeddings", "education"]
+  },
+  {
+    "id": "fraud-detection",
+    "title": "Credit Card Fraud Detection with Imbalanced Data",
+    "domain": "Finance",
+    "summary": "Evaluate fraud detection models while accounting for class imbalance, threshold choice, and evaluation metrics.",
+    "methods": ["Classification", "Imbalanced learning", "Precision-recall analysis"],
+    "datasets": ["A public anonymized fraud dataset"],
+    "level": "Intermediate",
+    "keywords": ["finance", "fraud", "anomaly detection", "classification", "imbalanced data"]
+  },
+  {
+    "id": "water-quality-monitoring",
+    "title": "Water Quality Prediction from Sensor Measurements",
+    "domain": "Environment",
+    "summary": "Use environmental sensor measurements to estimate water quality indicators and identify influential variables.",
+    "methods": ["Regression", "Feature analysis", "Time-series modeling"],
+    "datasets": ["A public water quality dataset"],
+    "level": "Beginner",
+    "keywords": ["environment", "water quality", "sensors", "regression", "sustainability"]
+  }
+]
